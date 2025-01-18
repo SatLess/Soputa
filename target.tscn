@@ -1,12 +1,68 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnp34fxnpabyn"]
+[gd_scene load_steps=10 format=3 uid="uid://cnp34fxnpabyn"]
 
-[ext_resource type="Texture2D" uid="uid://boy4qvnf5kbys" path="res://icon.svg" id="1_t2jmu"]
+[ext_resource type="Script" uid="uid://8ms2bgtiblwy" path="res://target.gd" id="1_e1yvt"]
+[ext_resource type="Texture2D" uid="uid://cmcu2q0sl2gs1" path="res://prototype_ass/location.png" id="2_5ebp1"]
+[ext_resource type="Script" uid="uid://cwseq68u7mr73" path="res://animated_sprite.gd" id="2_e1yvt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e1yvt"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ebp1"]
+atlas = ExtResource("2_5ebp1")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqips"]
+atlas = ExtResource("2_5ebp1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufrq1"]
+atlas = ExtResource("2_5ebp1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d2pw"]
+atlas = ExtResource("2_5ebp1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vwgc3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ebp1")
+}],
+"loop": true,
+"name": &"backward",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqips")
+}],
+"loop": true,
+"name": &"diagonal_back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ufrq1")
+}],
+"loop": true,
+"name": &"diagonal_front",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d2pw")
+}],
+"loop": true,
+"name": &"front",
+"speed": 5.0
+}]
+
 [node name="Target" type="CharacterBody3D"]
+rotation_edit_mode = 2
+script = ExtResource("1_e1yvt")
 
 [node name="Raycasts" type="Node3D" parent="."]
+metadata/_edit_group_ = true
 
 [node name="RayCast3D" type="RayCast3D" parent="Raycasts"]
 target_position = Vector3(0, 0, -2)
@@ -20,6 +76,10 @@ target_position = Vector3(-0.695, 0, -2)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_e1yvt")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="AnimatedSprite" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(3.25, 0, 0, 0, 3.25, 0, 0, 0, 3.25, 0, 0, 0)
 billboard = 2
-texture = ExtResource("1_t2jmu")
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_vwgc3")
+animation = &"front"
+script = ExtResource("2_e1yvt")
