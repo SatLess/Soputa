@@ -1,3 +1,24 @@
-[gd_scene format=3 uid="uid://pn53n36pglc1"]
+[gd_scene load_steps=5 format=3 uid="uid://pn53n36pglc1"]
+
+[ext_resource type="Script" uid="uid://c85x667ny0rcb" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://dj6pf1mft2kch" path="res://cam_pivot.gd" id="2_onrkg"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_onrkg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i3pqv"]
 
 [node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_4flbx")
+
+[node name="CamPivot" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.725032, 0)
+spring_length = 0.0
+script = ExtResource("2_onrkg")
+
+[node name="Camera3D" type="Camera3D" parent="CamPivot"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_onrkg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_i3pqv")
